@@ -82,7 +82,7 @@ export const updateUser = async (req: Request, res: Response) => {
         console.log('updated successfuly')
 
         return res.json({
-            message: 'updated successfuly',
+            message: 'updated successfully',
             status: 'Ok!'
         });
 
