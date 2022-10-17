@@ -17,7 +17,7 @@ interface UserBody {
 
 
 //export to user.routes.ts
-//this is a function to create users
+//THIS IS A FUNCTION TO CREATE USERS:
 export const createUser = async ( req: Request<unknown, unknown, UserBody>, res: Response) => {
     try{
         //from request body, i am going to extract firstname and lastname:
@@ -45,7 +45,7 @@ export const createUser = async ( req: Request<unknown, unknown, UserBody>, res:
 };
 
 
-//this is a function to get users:
+//THIS IS THE FUNCTION TO GET ALL USERS:
 export const getUsers = async (req: Request, res: Response) => {
     try{
           //get the users from the database
@@ -62,7 +62,7 @@ export const getUsers = async (req: Request, res: Response) => {
     }
 };
 
-//this is the update user function:
+//THIS IS THE UPDATE USER FUNCTION:
 export const updateUser = async (req: Request, res: Response) => {
     
     //here we destructure the function and declare that id has a value of the endpoint parameters
@@ -94,7 +94,7 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 // end of tutorial
 
-//this is the function to delete a user:
+//THIS IS THE FUNCTION TO DELETE A USER:
 //this function must 
 export const deleteUser = async ( req: Request, res: Response) => {
     try {
@@ -116,7 +116,7 @@ export const deleteUser = async ( req: Request, res: Response) => {
     }
 };
 
-// The function to get one individual user
+// THE FUNCTION TO GET ONE INDIVIDUAL USER:
 export const getUser = async (req: Request , res: Response) => {
    try{
     const {id} = req.params
