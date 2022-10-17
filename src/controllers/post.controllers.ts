@@ -3,39 +3,34 @@ import {Request, Response} from 'express';
 import { Any } from 'typeorm';
 import { brotliDecompressSync } from 'zlib';
 
-//importing the 'user' class from the user entities file
-import {User} from '../entities/User'
+//importing the 'Post' class from the post entities file
+import {Post} from '../entities/Post'
 
-interface UserBody {
-    firstname: string,
-    lastname: string,
-    email: string,
-    age: number,
-    height: number,
-    weight: number 
+interface PostBody {
+    description: string,
+    
 }
 
 
 //export to user.routes.ts
 //THIS IS A FUNCTION TO CREATE POSTS:
-export const createPost = async ( req: Request<unknown, unknown, UserBody>, res: Response) => {
+export const createPost = async ( req: Request<unknown, unknown, PostBody>, res: Response) => {
     try{
-        //from request body, i am going to extract firstname and lastname:
+        //from request body, i am going to extract the description (body) of the post.
         //destructured function to take out the important data from the request:
-    const {firstname, lastname, email} = req.body;
+    const {description} = req.body;
 
 
-    // making a new instance of the class user
-    const user = new User();
-    user.firstname = firstname;
-    user.lastname = lastname;
-    user.email = email;
+    // making a new instance of the class post
+    const post = new Post();
+    post.description = description;
+    
 
     //save method:
-    await user.save();
+    await post.save();
 
-    //this will return to the client the data of the new user that has been created in the post request
-    return res.json(user);
+    //this will return to the client the data of the new post that has been created in the post request
+    return res.json(post);
     } catch (error) {
         // catching potential errors in the post and returning a 500 status
         if (error instanceof Error) {
@@ -48,12 +43,12 @@ export const createPost = async ( req: Request<unknown, unknown, UserBody>, res:
 //THIS IS THE FUNCTION TO GET ALL POSTS:
 export const getPosts = async (req: Request, res: Response) => {
     try{
-          //get the users from the database
+          //get the posts from the database
           //this is a variable which stores all of the data that this asynchronous function collects
-    const users = await User.find()
+    const posts = await Post.find()
 
-    //return the users to the client
-    return res.json(users)
+    //return the posts to the client
+    return res.json(posts)
 
     } catch (error) {
         if (error instanceof Error) {
@@ -69,20 +64,20 @@ export const updatePost = async (req: Request, res: Response) => {
     const { id } = req.params
     try {
 
-        //this line of code permits us to return an object user which we will be able to see in the console
-        const user = await User.findOneBy({id: parseInt (id)});
+        //this line of code permits us to return an object 'post' which we will be able to see in the console
+        const post = await Post.findOneBy({id: parseInt (id)});
        
 
         //error message is returned if the user does not exist
-        if (!user) return res.status(404).json({message: 'User does not exist'})
+        if (!post) return res.status(404).json({message: 'Post does not exist'})
 
 
-        //from model user from class user:
-        await User.update({id: parseInt(id) }, req.body) //in req.body is where we enter the new data that we wish to update
-        console.log('updated successfuly')
+        //from model post from class post:
+        await Post.update({id: parseInt(id) }, req.body) //in req.body is where we enter the new data that we wish to update
+        console.log('post updated successfuly')
 
         return res.json({
-            message: 'updated successfully',
+            message: 'post updated successfully',
             status: 'Ok!'
         });
 
@@ -101,13 +96,13 @@ export const deletePost = async ( req: Request, res: Response) => {
         const {id} = req.params
 
     // delete receives a parameter
-    const result = await User.delete({id: parseInt(id)})
+    const result = await Post.delete({id: parseInt(id)})
 
     if (result.affected === 0 ) {
-        return res.status(404).json({message: 'User not found'})
+        return res.status(404).json({message: 'Post not found'})
     }
 
-    return res.status(200).json({message: "adios basura sucia"})
+    return res.status(200).json({message: "post deleted"})
     
     } catch (error) {
         if (error instanceof Error) {
@@ -121,8 +116,8 @@ export const getPost = async (req: Request , res: Response) => {
    try{
     const {id} = req.params
 
-    const user = await User.findOneBy({id: parseInt(id)})
-    return res.json(user)
+    const post = await Post.findOneBy({id: parseInt(id)})
+    return res.json(post)
    } catch (error) {
     if (error instanceof Error) {
         return res.status(500).json({message: error.message, });
