@@ -7,22 +7,24 @@ import { brotliDecompressSync } from 'zlib';
 import {Post} from '../entities/Post'
 
 interface PostBody {
+    user_id: number,
     description: string,
     
 }
 
 
-//export to user.routes.ts
+//export to post.routes.ts
 //THIS IS A FUNCTION TO CREATE POSTS:
-export const createPost = async ( req: Request<unknown, unknown, PostBody>, res: Response) => {
+export const createPost = async ( req: Request<PostBody>, res: Response) => {
     try{
         //from request body, i am going to extract the description (body) of the post.
         //destructured function to take out the important data from the request:
-    const {description} = req.body;
+    const {user_id, description} = req.body;
 
 
     // making a new instance of the class post
     const post = new Post();
+    post.user = user_id;
     post.description = description;
     
 
@@ -68,7 +70,7 @@ export const updatePost = async (req: Request, res: Response) => {
         const post = await Post.findOneBy({id: parseInt (id)});
        
 
-        //error message is returned if the user does not exist
+        //error message is returned if the post does not exist
         if (!post) return res.status(404).json({message: 'Post does not exist'})
 
 
