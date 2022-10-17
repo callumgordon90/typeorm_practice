@@ -9,7 +9,10 @@ import {User} from '../entities/User'
 interface UserBody {
     firstname: string,
     lastname: string,
-    email: string
+    email: string,
+    age: number,
+    height: number,
+    weight: number 
 }
 
 
@@ -18,6 +21,7 @@ interface UserBody {
 export const createUser = async ( req: Request<unknown, unknown, UserBody>, res: Response) => {
     try{
         //from request body, i am going to extract firstname and lastname:
+        //destructured function to take out the important data from the request:
     const {firstname, lastname, email} = req.body;
 
 
@@ -45,6 +49,7 @@ export const createUser = async ( req: Request<unknown, unknown, UserBody>, res:
 export const getUsers = async (req: Request, res: Response) => {
     try{
           //get the users from the database
+          //this is a variable which stores all of the data that this asynchronous function collects
     const users = await User.find()
 
     //return the users to the client
@@ -60,7 +65,7 @@ export const getUsers = async (req: Request, res: Response) => {
 //this is the update user function:
 export const updateUser = async (req: Request, res: Response) => {
     
-    //here we structure the function and declare that id has a value of the endpoint parameters
+    //here we destructure the function and declare that id has a value of the endpoint parameters
     const { id } = req.params
     try {
 
