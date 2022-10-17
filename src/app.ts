@@ -2,6 +2,9 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 
+// server code is contained here in this file and then imported to the index.ts file
+
+
 //import router:
 import userRoutes from './routes/user.routes'
 
