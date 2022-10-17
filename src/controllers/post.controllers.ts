@@ -17,8 +17,8 @@ interface UserBody {
 
 
 //export to user.routes.ts
-//THIS IS A FUNCTION TO CREATE USERS:
-export const createUser = async ( req: Request<unknown, unknown, UserBody>, res: Response) => {
+//THIS IS A FUNCTION TO CREATE POSTS:
+export const createPost = async ( req: Request<unknown, unknown, UserBody>, res: Response) => {
     try{
         //from request body, i am going to extract firstname and lastname:
         //destructured function to take out the important data from the request:
@@ -45,8 +45,8 @@ export const createUser = async ( req: Request<unknown, unknown, UserBody>, res:
 };
 
 
-//THIS IS THE FUNCTION TO GET ALL USERS:
-export const getUsers = async (req: Request, res: Response) => {
+//THIS IS THE FUNCTION TO GET ALL POSTS:
+export const getPosts = async (req: Request, res: Response) => {
     try{
           //get the users from the database
           //this is a variable which stores all of the data that this asynchronous function collects
@@ -62,8 +62,8 @@ export const getUsers = async (req: Request, res: Response) => {
     }
 };
 
-//THIS IS THE UPDATE USER FUNCTION:
-export const updateUser = async (req: Request, res: Response) => {
+//THIS IS THE UPDATE POST FUNCTION:
+export const updatePost = async (req: Request, res: Response) => {
     
     //here we destructure the function and declare that id has a value of the endpoint parameters
     const { id } = req.params
@@ -94,9 +94,9 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 // end of tutorial
 
-//THIS IS THE FUNCTION TO DELETE A USER:
+//THIS IS THE FUNCTION TO DELETE A POST:
 //this function must 
-export const deleteUser = async ( req: Request, res: Response) => {
+export const deletePost = async ( req: Request, res: Response) => {
     try {
         const {id} = req.params
 
@@ -116,8 +116,8 @@ export const deleteUser = async ( req: Request, res: Response) => {
     }
 };
 
-// THE FUNCTION TO GET ONE INDIVIDUAL USER:
-export const getUser = async (req: Request , res: Response) => {
+// THE FUNCTION TO GET ONE INDIVIDUAL POST:
+export const getPost = async (req: Request , res: Response) => {
    try{
     const {id} = req.params
 
